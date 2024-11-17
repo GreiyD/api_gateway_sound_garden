@@ -1,0 +1,24 @@
+services:
+  api_gateway:
+    container_name: api_gateway_${PROJECT_NAME}
+    build:
+      context: .
+      dockerfile: docker/go/go.Dockerfile
+      args:
+        WORKDIR: ${WORKDIR}
+    ports:
+      - ${GO_PORT}:5000
+    env_file:
+      - .env
+    volumes:
+      - ./src:${WORKDIR}
+#    working_dir: ${WORKDIR}
+#    command: /srv/src/app/api-gateway
+#    restart: always
+    user: ${USER_ID}:${GROUP_ID}
+    networks:
+      - sound-garden-network-dev
+
+networks:
+  sound-garden-network-dev:
+    external: true
