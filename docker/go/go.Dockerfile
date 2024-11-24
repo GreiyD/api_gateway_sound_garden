@@ -1,4 +1,4 @@
-FROM golang:1.21.4 AS builder
+FROM golang:1.23 AS builder
 
 ARG WORKDIR
 WORKDIR ${WORKDIR}
@@ -9,7 +9,7 @@ ENV GOCACHE=/go/cache
 
 RUN mkdir -p /go/cache
 
-RUN go build -o api-gateway ./src/main.go
+RUN go build -o api-gateway ./cmd/api-gateway/main.go
 
 FROM alpine:3.15
 

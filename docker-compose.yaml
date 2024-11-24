@@ -11,7 +11,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ./src:${WORKDIR}
+      - ./:${WORKDIR}
 #    working_dir: ${WORKDIR}
 #    command: /srv/src/app/api-gateway
 #    restart: always

@@ -6,14 +6,13 @@ import (
 	"net/http"
 )
 
-// Структура для JSON-ответа
 type Response struct {
 	Message string `json:"message"`
 	Status  bool   `json:"status"`
 }
 
 func helloHandler(w http.ResponseWriter, r *http.Request) {
-	// Разрешаем CORS
+
 	w.Header().Set("Access-Control-Allow-Origin", "*") // Здесь укажите ваш фронтенд URL вместо "*", если необходимо
 	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
