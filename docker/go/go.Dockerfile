@@ -3,6 +3,10 @@ FROM golang:1.23 AS builder
 ARG WORKDIR
 WORKDIR ${WORKDIR}
 
+COPY go.mod go.sum ./
+
+RUN go mod tidy
+
 COPY . .
 
 ENV GOCACHE=/go/cache
