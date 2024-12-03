@@ -1,0 +1,5 @@
+http:
+  port: 5000
+
+auth_service:
+  url: http://auth_service:9000/api
