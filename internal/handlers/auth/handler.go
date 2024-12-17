@@ -8,7 +8,7 @@ import (
 )
 
 func RegisterUser(w http.ResponseWriter, r *http.Request, conf *config.AuthService) {
-	requestUrl := conf.Url + "/v1/users/register"
+	requestUrl := conf.Url + "/v1/auth/register"
 
 	resp, err := httpHandler.ProxyRequest(requestUrl, r)
 	if err != nil {
@@ -26,7 +26,25 @@ func RegisterUser(w http.ResponseWriter, r *http.Request, conf *config.AuthServi
 }
 
 func LoginUser(w http.ResponseWriter, r *http.Request, conf *config.AuthService) {
-	requestUrl := conf.Url + "/v1/users/login"
+	requestUrl := conf.Url + "/v1/auth/login"
+
+	resp, err := httpHandler.ProxyRequest(requestUrl, r)
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Ошибка при отправке запроса: %v", err), http.StatusInternalServerError)
+		return
+	}
+
+	body, statusCode, err := httpHandler.ProcessServiceResponse(resp)
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Failed to process service response: %v", err), http.StatusInternalServerError)
+		return
+	}
+
+	httpHandler.RespondToClient(w, body, statusCode)
+}
+
+func LogoutUser(w http.ResponseWriter, r *http.Request, conf *config.AuthService) {
+	requestUrl := conf.Url + "/v1/auth/logout"
 
 	resp, err := httpHandler.ProxyRequest(requestUrl, r)
 	if err != nil {

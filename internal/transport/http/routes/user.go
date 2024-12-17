@@ -15,4 +15,8 @@ func UserRoutes(router chi.Router, conf *config.AuthService) {
 	router.Post("/login", func(w http.ResponseWriter, r *http.Request) {
 		auth.LoginUser(w, r, conf)
 	})
+
+	router.Post("/logout", func(w http.ResponseWriter, r *http.Request) {
+		auth.LogoutUser(w, r, conf)
+	})
 }
